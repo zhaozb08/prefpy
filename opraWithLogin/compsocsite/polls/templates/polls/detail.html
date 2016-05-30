@@ -1,0 +1,46 @@
+<h1>{{ question.question_text }}</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url 'polls:vote' question.id %}" method="post">
+{% csrf_token %}
+<table class="grid" cellspacing="10">
+
+<!-- ranking numbers in top row of grid -->
+<!-- loop this for each item -->
+<tr>
+	<td></td>
+	{% for item in question.item_set.all %}
+		<td align="center"><label for="item{{ forloop.counter }}">{{ forloop.counter }}</label></td>
+	{% endfor %}
+</tr>
+
+<!-- item text -->
+<!-- loop this for each item -->
+{% for item in question.item_set.all %}
+	<tr>
+		<td class="griditem"><label for="item{{ forloop.counter }}">{{ item.item_text }}</label></td>
+
+		<!-- radio buttons -->
+		<!-- loop this for each item -->
+		{% for item in question.item_set.all %}
+			<td><input type="radio" name="item{{ forloop.parentloop.counter }}" id="item{{ forloop.parentloop.counter }}.rank{{ forloop.counter }}" value="{{ forloop.counter }}" /></td>
+		{% endfor %}
+	</tr>
+{% endfor %}
+</table>
+
+<br> <br> <br>
+<h2>Please select your name:<br></h2>
+
+<!-- student name selection -->
+{% for student in students %}
+	<input type="radio" name="name" id="{{ student.student_name }}" value="{{ student.student_name }}" required />
+    <label for="{{ student.student_name }}">{{ student.student_name }}</label><br />
+{% endfor %}
+
+<!-- submit button -->
+<br><br>
+<input type="submit" value="Submit" />
+
+</form>

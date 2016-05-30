@@ -1,0 +1,9 @@
+<h1>{{ question.question_text }}</h1>
+
+<ul>
+{% for response in question.response_set.all %}
+    <li>{{ response.student.student_name }}: {{ response.allocation.item_text }}</li>
+{% endfor %}
+</ul>
+
+<a href="{% url 'polls:index' %}"> Return Home</a>

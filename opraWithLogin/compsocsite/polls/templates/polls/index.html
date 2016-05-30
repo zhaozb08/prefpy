@@ -1,0 +1,35 @@
+{% if user.is_authenticated %}
+<a href="/polls/restricted/">Restricted Page</a><br />
+<a href="/polls/logout/">Logout</a><br />
+{% else %}
+<a href="/polls/register/">Register Here</a><br />
+<a href="/polls/login/">Login</a><br />
+{% endif %}
+
+<h2>Home Page</h2>
+<br>
+<h3>Questions:</h3>
+{% if question_list %}
+    <ul>
+    {% for question in question_list %}
+        <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No questions are currently available.</p>
+{% endif %}
+<br>
+<h3>Results:</h3>
+{% if question_list %}
+    	<ul>
+    	{% for question in question_list %}
+    		{% if question.response_set.all.0.allocation %}
+        		<li><a href="{% url 'polls:results' question.id %}">Allocation complete: {{ question.question_text }}</a></li>
+        	{% else %}
+        		<li>Allocation not complete: {{ question.question_text }}</li>
+        	{% endif %}
+    	{% endfor %}
+    	</ul>
+{% else %}
+    <p>No results are currently available.</p>
+{% endif %}

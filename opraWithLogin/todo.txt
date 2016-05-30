@@ -1,0 +1,15 @@
+-admin.py:
+	-add section to view preferences from dict (currently can just view student/question/timestamp/allocation of a response)
+	-allow admin to choose which questions/results are published on the index page (possibly select date range?)
+	-don't let admin run algorithm on responses with different questions (currently causes error)
+	-don't let admin run algorithm on follow-up question before primary question has been allocated (currently causes error)
+	-add project model to hold questions
+	-make allocations editable
+-add view to see date & paper allocation in one screen?
+-results view for admin specifically
+-bonus:
+	-automate emailing
+	-add student user authentication
+	-figure out grad/undergrad distinction with date selection???
+	-make the UI not look like shit
+	-do more testing to make sure it doesn’t break
